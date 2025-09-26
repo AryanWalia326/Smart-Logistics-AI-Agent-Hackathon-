@@ -2,14 +2,39 @@
   "name": "smart-logistics-ai-agent",
   "version": "1.0.0",
   "description": "AI-powered logistics management system with intelligent route optimization and real-time tracking",
-  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.5.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
-    "start": "cd frontend && npm start",
-    "build": "cd frontend && npm run build",
-    "test": "cd frontend && npm test",
-    "install-deps": "cd frontend && npm install",
-    "dev": "npm run install-deps && npm start",
-    "deploy-lambda": "cd backend/lambda && zip -r notify.zip notify.js && aws lambda update-function-code --function-name smart-logistics-notify --zip-file fileb://notify.zip"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "keywords": [
     "logistics",
@@ -26,16 +51,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/smart-logistics-ai-agent.git"
+    "url": "https://github.com/AryanWalia326/Smart-Logistics-AI-Agent-Hackathon-.git"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  },
-  "devDependencies": {},
-  "dependencies": {},
-  "workspaces": [
-    "frontend"
-  ],
-  "private": true
+  }
 }

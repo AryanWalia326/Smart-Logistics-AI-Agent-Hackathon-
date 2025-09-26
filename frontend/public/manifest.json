@@ -1,0 +1,16 @@
+{
+  "short_name": "Smart Logistics AI",
+  "name": "Smart Logistics AI Agent - Autonomous Decision Making Platform",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚚</text></svg>",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "description": "Autonomous logistics platform powered by AWS Bedrock AgentCore with Claude 3.5 Sonnet AI for intelligent route optimization and package tracking."
+}
