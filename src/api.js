@@ -1,5 +1,5 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001/api';
-const MOCK_MODE = process.env.REACT_APP_MOCK_API === 'true' || false;
+const MOCK_MODE = process.env.REACT_APP_MOCK_API === 'true' || true; // Enable mock mode for demo
 
 class ApiService {
   constructor() {
