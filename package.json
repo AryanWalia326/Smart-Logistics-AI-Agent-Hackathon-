@@ -1,0 +1,41 @@
+{
+  "name": "smart-logistics-ai-agent",
+  "version": "1.0.0",
+  "description": "AI-powered logistics management system with intelligent route optimization and real-time tracking",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "test": "cd frontend && npm test",
+    "install-deps": "cd frontend && npm install",
+    "dev": "npm run install-deps && npm start",
+    "deploy-lambda": "cd backend/lambda && zip -r notify.zip notify.js && aws lambda update-function-code --function-name smart-logistics-notify --zip-file fileb://notify.zip"
+  },
+  "keywords": [
+    "logistics",
+    "ai",
+    "aws",
+    "bedrock",
+    "route-optimization",
+    "tracking",
+    "delivery",
+    "react",
+    "serverless"
+  ],
+  "author": "Smart Logistics Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/smart-logistics-ai-agent.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "workspaces": [
+    "frontend"
+  ],
+  "private": true
+}

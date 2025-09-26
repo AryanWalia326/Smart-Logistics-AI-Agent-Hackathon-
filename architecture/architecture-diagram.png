@@ -1,0 +1,110 @@
+# Smart Logistics AI Agent - Architecture
+
+![Architecture Diagram Placeholder](architecture-diagram.png)
+
+*Note: This is a placeholder for the architecture diagram. Please replace with the actual diagram showing the system components and their interactions.*
+
+## System Architecture Overview
+
+The Smart Logistics AI Agent is built on AWS cloud infrastructure with the following key components:
+
+### Frontend Layer
+- **React Application**: Customer-facing interface for order creation and tracking
+- **Responsive Design**: Optimized for both web and mobile devices
+- **Real-time Updates**: WebSocket connections for live tracking updates
+
+### API Gateway Layer
+- **RESTful APIs**: Standardized endpoints for all system operations
+- **Authentication**: JWT-based authentication and authorization
+- **Rate Limiting**: Protection against abuse and overload
+- **Request Validation**: Input sanitization and validation
+
+### AI Agent Core (Bedrock)
+- **Natural Language Processing**: Understanding customer queries and requests
+- **Route Optimization**: AI-powered delivery route planning
+- **Predictive Analytics**: Demand forecasting and delivery time estimation
+- **Decision Making**: Automated handling of logistics decisions
+
+### Workflow Management (Strands)
+- **Order Processing**: Automated order lifecycle management
+- **Event-Driven Architecture**: Reactive system responding to status changes
+- **Error Handling**: Robust error recovery and escalation procedures
+- **Monitoring**: Real-time workflow performance tracking
+
+### Microservices Layer
+- **Order Service**: Order creation, updates, and management
+- **Tracking Service**: Real-time location and status tracking
+- **Notification Service**: Multi-channel customer communications
+- **Route Service**: Delivery route optimization and planning
+- **Driver Service**: Driver assignment and management
+
+### Data Layer
+- **DynamoDB**: NoSQL database for orders, customers, and tracking data
+- **S3**: Object storage for images, documents, and AI models
+- **ElastiCache**: Caching layer for improved performance
+- **OpenSearch**: Search and analytics for orders and routes
+
+### Integration Layer
+- **SNS**: Push notifications and event messaging
+- **SQS**: Reliable message queuing between services
+- **EventBridge**: Event routing and transformation
+- **Lambda**: Serverless compute for event processing
+
+## Key Features
+
+### Intelligent Route Optimization
+- Machine learning algorithms analyze traffic patterns, delivery windows, and vehicle constraints
+- Real-time adjustments based on traffic conditions and new orders
+- Multi-objective optimization considering cost, time, and customer satisfaction
+
+### Predictive Analytics
+- Delivery time estimation based on historical data and current conditions
+- Demand forecasting to optimize resource allocation
+- Anomaly detection for potential delivery issues
+
+### Real-time Tracking
+- GPS-based location tracking for all deliveries
+- Automated status updates and notifications
+- Geofencing for pickup and delivery confirmations
+
+### Customer Experience
+- Self-service order creation and modification
+- Real-time tracking with estimated arrival times
+- Proactive notifications about delays or issues
+- Feedback collection and service improvements
+
+## Scalability and Reliability
+
+### Auto Scaling
+- Elastic Load Balancing across multiple availability zones
+- Auto Scaling Groups for compute resources
+- DynamoDB on-demand scaling
+- Lambda automatic concurrency management
+
+### Disaster Recovery
+- Multi-region deployment with failover capabilities
+- Automated backups and point-in-time recovery
+- Cross-region replication for critical data
+- Infrastructure as Code for rapid environment recreation
+
+### Security
+- End-to-end encryption for data in transit and at rest
+- IAM roles and policies for least privilege access
+- VPC isolation and security groups
+- Regular security audits and compliance monitoring
+
+## Performance Optimization
+
+### Caching Strategy
+- CloudFront for global content delivery
+- ElastiCache for frequently accessed data
+- Application-level caching for route calculations
+- Database query optimization and indexing
+
+### Monitoring and Observability
+- CloudWatch for metrics and logging
+- X-Ray for distributed tracing
+- Custom dashboards for business metrics
+- Automated alerting for system issues
+
+This architecture ensures high availability, scalability, and performance while providing an excellent customer experience through AI-powered logistics optimization.
