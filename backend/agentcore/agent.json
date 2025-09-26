@@ -1,0 +1,174 @@
+{
+  "agentId": "smart-logistics-agent",
+  "agentName": "Smart Logistics AI Agent",
+  "description": "AI-powered logistics optimization and order management system",
+  "version": "1.0.0",
+  "foundationModel": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+  "instruction": "You are an autonomous smart logistics AI agent with decision-making capabilities. You independently analyze situations and choose appropriate actions:\n\n1. AUTONOMOUS DECISIONS: When users ask questions, you decide whether to:\n   - Answer directly from knowledge\n   - Check APIs for real-time data\n   - Update order statuses\n   - Optimize routes automatically\n   - Send proactive notifications\n\n2. CONTEXT AWARENESS: You understand logistics context and make intelligent decisions:\n   - Detect delivery delays and auto-notify customers\n   - Optimize routes when new orders arrive\n   - Handle exceptions and escalate when needed\n   - Provide predictive insights\n\n3. TOOL SELECTION: You autonomously choose which action groups to invoke based on the situation, user intent, and system state.",
+  "actionGroups": [
+    {
+      "actionGroupName": "RouteOptimization",
+      "description": "AUTONOMOUS ROUTE DECISIONS: Automatically optimize delivery routes, calculate ETAs, and adjust for traffic/weather. Called when: new orders arrive, traffic changes detected, or efficiency improvements needed.",
+      "actionGroupExecutor": {
+        "lambda": "arn:aws:lambda:us-east-1:123456789012:function:route-optimizer"
+      },
+      "apiSchema": {
+        "payload": "route-optimization-schema.json"
+      },
+      "functionSchema": {
+        "functions": [
+          {
+            "name": "optimizeRoutes",
+            "description": "Optimize delivery routes for multiple orders",
+            "parameters": {
+              "orders": "Array of order objects with addresses",
+              "constraints": "Delivery time windows, vehicle capacity, driver availability",
+              "optimization_goals": "minimize_time, minimize_cost, or balanced"
+            }
+          },
+          {
+            "name": "calculateETA",
+            "description": "Calculate estimated time of arrival for delivery",
+            "parameters": {
+              "origin": "Starting location coordinates",
+              "destination": "Delivery address",
+              "traffic_conditions": "Current traffic data",
+              "weather_impact": "Weather conditions affecting delivery"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "actionGroupName": "OrderManagement",
+      "description": "AUTONOMOUS ORDER DECISIONS: Independently create, update, track orders and handle status changes. Called when: customers inquire about orders, system detects status changes, or exceptions occur.",
+      "actionGroupExecutor": {
+        "lambda": "arn:aws:lambda:us-east-1:123456789012:function:order-manager"
+      },
+      "apiSchema": {
+        "payload": "order-management-schema.json"
+      },
+      "functionSchema": {
+        "functions": [
+          {
+            "name": "createOrder",
+            "description": "Create new logistics order",
+            "parameters": {
+              "customer_info": "Customer details and contact information",
+              "pickup_location": "Pickup address and coordinates",
+              "delivery_location": "Delivery address and coordinates",
+              "package_details": "Package type, size, weight, special requirements"
+            }
+          },
+          {
+            "name": "trackOrder",
+            "description": "Get real-time order tracking information",
+            "parameters": {
+              "order_id": "Unique order identifier",
+              "tracking_id": "Customer tracking number"
+            }
+          },
+          {
+            "name": "updateOrderStatus",
+            "description": "Update order status and location",
+            "parameters": {
+              "order_id": "Order to update",
+              "new_status": "Status: created, picked_up, in_transit, delivered, delayed",
+              "location": "Current GPS coordinates or address",
+              "notes": "Additional status update information"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "actionGroupName": "NotificationService",
+      "description": "AUTONOMOUS NOTIFICATION DECISIONS: Proactively send notifications based on events, delays, or customer needs. Called when: status changes occur, delays detected, or customer communication needed.",
+      "actionGroupExecutor": {
+        "lambda": "arn:aws:lambda:us-east-1:123456789012:function:notification-service"
+      },
+      "apiSchema": {
+        "payload": "notification-schema.json"
+      },
+      "functionSchema": {
+        "functions": [
+          {
+            "name": "sendStatusNotification",
+            "description": "Send order status update to customer",
+            "parameters": {
+              "order_id": "Order identifier",
+              "customer_contact": "Phone/email for notification",
+              "notification_type": "sms, email, or both",
+              "message_template": "Predefined message template",
+              "personalization_data": "Order-specific details for message"
+            }
+          },
+          {
+            "name": "sendProactiveAlert",
+            "description": "Proactively alert about delays or issues",
+            "parameters": {
+              "affected_orders": "List of impacted orders",
+              "alert_type": "delay, weather, traffic, exception",
+              "estimated_impact": "Time delay or service impact",
+              "proposed_solution": "Alternative arrangements or new ETA"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "actionGroupName": "ExternalDataIntegration",
+      "description": "AUTONOMOUS DATA DECISIONS: Automatically fetch and analyze external data (weather, traffic, business hours) to make informed logistics decisions.",
+      "actionGroupExecutor": {
+        "lambda": "arn:aws:lambda:us-east-1:123456789012:function:external-data-processor"
+      },
+      "apiSchema": {
+        "payload": "external-data-schema.json"
+      },
+      "functionSchema": {
+        "functions": [
+          {
+            "name": "getWeatherImpact",
+            "description": "Analyze weather conditions for delivery planning",
+            "parameters": {
+              "delivery_locations": "Array of delivery addresses",
+              "time_window": "Planned delivery timeframe",
+              "package_sensitivity": "Weather sensitivity of packages"
+            }
+          },
+          {
+            "name": "getTrafficConditions",
+            "description": "Get real-time traffic data for route optimization",
+            "parameters": {
+              "route_waypoints": "Planned delivery route points",
+              "departure_time": "Planned departure time",
+              "vehicle_type": "Vehicle restrictions and capabilities"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "knowledgeBases": [
+    {
+      "knowledgeBaseId": "logistics-knowledge-base",
+      "description": "Contains logistics best practices, shipping regulations, and route optimization data"
+    }
+  ],
+  "promptOverrideConfiguration": {
+    "promptConfigurations": [
+      {
+        "promptType": "PRE_PROCESSING",
+        "promptState": "ENABLED",
+        "promptCreationMode": "OVERRIDDEN",
+        "basePromptTemplate": "Process the user's logistics request and determine the appropriate action to take.",
+        "inferenceConfiguration": {
+          "temperature": 0.1,
+          "topP": 0.9,
+          "topK": 250,
+          "maximumLength": 2048
+        }
+      }
+    ]
+  }
+}

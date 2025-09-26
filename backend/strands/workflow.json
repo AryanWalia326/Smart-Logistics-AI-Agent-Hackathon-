@@ -1,0 +1,137 @@
+{
+  "workflowId": "logistics-optimization-workflow",
+  "workflowName": "Smart Logistics Optimization Workflow",
+  "description": "Automated workflow for processing orders, optimizing routes, and managing deliveries",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "stepId": "order-validation",
+      "stepName": "Order Validation",
+      "type": "validation",
+      "description": "Validate incoming order data and check for completeness",
+      "configuration": {
+        "validationRules": [
+          "customerInfo.required",
+          "pickupAddress.valid",
+          "deliveryAddress.valid",
+          "packageDetails.complete"
+        ]
+      },
+      "nextSteps": ["route-optimization"],
+      "errorHandling": {
+        "onError": "reject-order",
+        "retryCount": 0
+      }
+    },
+    {
+      "stepId": "route-optimization",
+      "stepName": "Route Optimization",
+      "type": "ai-processing",
+      "description": "Calculate optimal delivery route using AI algorithms",
+      "configuration": {
+        "algorithm": "genetic-algorithm",
+        "constraints": {
+          "maxDeliveryTime": "24h",
+          "vehicleCapacity": "dynamic",
+          "trafficConsideration": true
+        }
+      },
+      "nextSteps": ["driver-assignment"],
+      "errorHandling": {
+        "onError": "fallback-route",
+        "retryCount": 2
+      }
+    },
+    {
+      "stepId": "driver-assignment",
+      "stepName": "Driver Assignment",
+      "type": "resource-allocation",
+      "description": "Assign available driver to the optimized route",
+      "configuration": {
+        "assignmentCriteria": [
+          "driver-availability",
+          "location-proximity",
+          "vehicle-type-match"
+        ]
+      },
+      "nextSteps": ["notification-dispatch"],
+      "errorHandling": {
+        "onError": "queue-for-manual-assignment",
+        "retryCount": 1
+      }
+    },
+    {
+      "stepId": "notification-dispatch",
+      "stepName": "Customer Notification",
+      "type": "notification",
+      "description": "Send confirmation and tracking information to customer",
+      "configuration": {
+        "channels": ["sms", "email"],
+        "templateId": "order-confirmation",
+        "includeTrackingLink": true
+      },
+      "nextSteps": ["monitoring"],
+      "errorHandling": {
+        "onError": "log-notification-failure",
+        "retryCount": 3
+      }
+    },
+    {
+      "stepId": "monitoring",
+      "stepName": "Real-time Monitoring",
+      "type": "monitoring",
+      "description": "Monitor delivery progress and update status",
+      "configuration": {
+        "updateInterval": "5min",
+        "gpsTracking": true,
+        "alertThresholds": {
+          "delayWarning": "15min",
+          "criticalDelay": "1h"
+        }
+      },
+      "nextSteps": ["completion"],
+      "errorHandling": {
+        "onError": "escalate-to-support",
+        "retryCount": 0
+      }
+    },
+    {
+      "stepId": "completion",
+      "stepName": "Delivery Completion",
+      "type": "completion",
+      "description": "Mark order as delivered and send completion notification",
+      "configuration": {
+        "requireSignature": true,
+        "photoProof": true,
+        "customerFeedback": true
+      },
+      "nextSteps": [],
+      "errorHandling": {
+        "onError": "mark-as-failed-delivery",
+        "retryCount": 0
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "triggerId": "new-order-trigger",
+      "eventType": "order.created",
+      "source": "order-management-system",
+      "startStep": "order-validation"
+    },
+    {
+      "triggerId": "route-update-trigger",
+      "eventType": "route.updated",
+      "source": "traffic-management-system",
+      "startStep": "route-optimization"
+    }
+  ],
+  "globalConfiguration": {
+    "timeoutSettings": {
+      "stepTimeout": "30min",
+      "workflowTimeout": "24h"
+    },
+    "loggingLevel": "INFO",
+    "metricsCollection": true
+  }
+}

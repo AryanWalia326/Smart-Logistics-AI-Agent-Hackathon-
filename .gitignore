@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# AWS credentials (never commit these!)
+aws-credentials.json
+.aws/
+
+# Large files and directories to exclude - only exclude files outside project
+**/../../../../*
+**/../../../*
+**/../../*
+**/../*
+
+# Allow all project files
+!backend/**
+!frontend/**
+!architecture/**
+!demo/**
+!*.md
+!*.json
+!*.js
+!*.css
+!*.html
+!*.png
+!*.jpg
+!*.gif
